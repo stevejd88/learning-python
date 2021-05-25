@@ -1,4 +1,3 @@
-# arranged_problems = "Hello\nWorld"
 arranged_problems = []
 problemsdict = {}
 
@@ -13,7 +12,7 @@ def arithmetic_arranger(problems):
     obj['bottom'] = item[2]
 
     dashes = []
-    daschCount = 0
+    dashCount = 0
     if len(item[0]) > len(item[2]):
       dashCount = len(item[0]) + 2
     elif len(item[2]) > len(item[0]):
@@ -29,9 +28,13 @@ def arithmetic_arranger(problems):
     problemsdict[f"obj{count}"] = obj
     count = count + 1
 
+    if obj['operator'] == '+':
+      obj['answer'] = int(obj['top']) + int(obj['bottom'])
+    elif obj['operator'] == '-':
+      obj['answer'] = int(obj['top']) - int(obj['bottom'])
     
 
-  print(problemsdict)
+  # print(problemsdict)
 
 arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"])
 
@@ -71,5 +74,16 @@ for z in problemsdict:
   arranged_problems.append(problemsdict[z]["dash"])
   arranged_problems.append("    ")
 
+arranged_problems.append("\n")
+
+for a in problemsdict:
+  count = len(problemsdict[a]["dash"]) - len(str(problemsdict[a]["answer"]))
+
+  while count > 0:
+    arranged_problems.append(" ")
+    count = count - 1
+
+  arranged_problems.append(str(problemsdict[a]["answer"]))
+  arranged_problems.append("    ")
 
 print("".join(arranged_problems))
